@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Bacteriana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Tela de carregamento */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: #fff;
+            flex-direction: column;
+        }
+
+        #loading-screen .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #ffeb3b;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        #loading-screen p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilo geral */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #004d40, #00796b);
+            color: #fff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #ffeb3b;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            width: 60px;
+            height: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        header h1 {
+            font-size: 2em;
+            color: #ffeb3b;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        nav {
+            background: #00796b;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2em;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffeb3b;
+            transform: scale(1.1);
+        }
+
+         /* Lightbox overlay */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        /* Lightbox content */
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+        
+        /* Estilo das seções */
+        section {
+            padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+            max-width: 1200px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            color: #ffeb3b;
+            border-bottom: 4px solid #ff9800;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #e0f2f1;
+        }
+
+        section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        section img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: #004d40;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Estilo para dispositivos móveis */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+
+            nav a {
+                margin: 10px 0;
+                font-size: 1em;
+            }
+
+            section {
+                padding: 30px 10px;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section p {
+                font-size: 1em;
+            }
+
+            .logo {
+                width: 50px;
+                margin-right: 5px;
+            }
+        }
+
+        /* Estilo da seção de comentários */
+        #comentarios {
+            background: #004d40;
+            padding: 40px 20px;
+            max-width: 1200px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #comentarios h2 {
+            font-size: 2.5em;
+            color: #ffeb3b;
+            border-bottom: 4px solid #ff9800;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comentario {
+            background: #00796b;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .comentario p {
+            margin: 5px 0;
+        }
+
+        .comentario .nome {
+            font-weight: bold;
+        }
+
+        .comentario .data-hora {
+            font-size: 0.9em;
+            color: #b2dfdb;
+        }
+
+        .comentario .texto {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de carregamento -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <header>
+        <img src="pulmoes.png" alt="Logo" class="logo">
+        <h1>Pneumonia Bacteriana</h1>
+    </header>
+
+    <nav>
+        <a href="#oque">O que é?</a>
+        <a href="#como">Como Infecta?</a>
+        <a href="#tratamento">Tratamento</a>
+        <a href="#gravidade">Gravidade</a>
+        <a href="#solucao">Solução</a>
+        <a href="#prevencao">Prevenção</a>
+    </nav>
+
+    <!-- Seções -->
+    <section id="oque">
+        <h2>O que é Pneumonia Bacteriana?</h2>
+        <p>A pneumonia bacteriana é uma infecção grave dos pulmões causada por bactérias, que provoca inflamação nos alvéolos, pequenos sacos de ar nos pulmões. A bactéria Streptococcus pneumoniae é a principal causadora, mas outros microrganismos, como fungos e vírus, também podem causar a doença. Esse tipo de pneumonia pode ocorrer quando a imunidade está baixa ou como complicação de infecções virais como Covid-19 e influenza. Em 2023, houve um aumento de casos devido ao fim do isolamento da Covid-19, afetando vários países.</p>
+        <img src="https://img.freepik.com/vetores-gratis/bacterias-de-pneumonia-humana-com-imagens-isoladas-de-forma-anatomica-de-pulmoes-com-amostras-de-ilustracao-vetorial-de-bacterias-infecciosas_1284-75942.jpg" alt="O que é Pneumonia Bacteriana">
+        <img src="https://img.freepik.com/vetores-gratis/design-de-cartaz-para-pneumonia-com-pulmoes-humanos-e-celulas-de-virus_1308-42302.jpg" alt="O que é Pneumonia Bacteriana">
+    </section>
+
+    <section id="como">
+        <h2>Como Infecta?</h2>
+        <p>A pneumonia bacteriana é transmitida por meio de gotículas respiratórias expelidas por uma pessoa infectada. O contágio ocorre quando a pessoa infectada tosse, espirra ou fala, liberando as bactérias no ar. Outra forma de transmissão é pelo contato com superfícies contaminadas seguidas de toque no rosto, especialmente na boca e nariz. A infecção pode se espalhar para os pulmões quando as bactérias são aspiradas, superando as defesas naturais do organismo.</p>
+        <img src="infectado.jpg" alt="Como Infecta?">
+        <img src="infectado2.jpg" alt="Como Infecta?">
+    </section>
+
+    <section id="tratamento">
+        <h2>Tratamento</h2>
+        <p>O tratamento da pneumonia bacteriana geralmente envolve o uso de antibióticos prescritos pelo médico, que são eficazes no combate à infecção. Além dos antibióticos, é importante manter uma boa hidratação, descansar e, em alguns casos, utilizar medicamentos para controlar a febre e a dor. Em situações graves, pode ser necessário hospitalização para tratamento intravenoso e monitoramento mais intenso. É fundamental seguir as orientações médicas e completar o curso de antibióticos para garantir a eliminação total da infecção.</p>
+        <img src="tratamento.jpg" alt="Tratamento">
+    </section>
+
+    <section id="gravidade">
+        <h2>Gravidade</h2>
+        <p>A gravidade da pneumonia bacteriana pode variar de leve a grave, dependendo do estado geral de saúde do paciente e da rapidez com que o tratamento é iniciado. Pacientes com condições pré-existentes, idosos e crianças pequenas são mais suscetíveis a complicações. Os sintomas graves incluem dificuldade respiratória, dor no peito intensa, febre alta e confusão. Se não tratada adequadamente, a pneumonia pode levar a complicações sérias, como infecção generalizada (septicemia) e, em casos extremos, pode ser fatal.</p>
+        <img src="https://www.angomed.com/wp-content/uploads/2015/04/CURB65.png" alt="Gravidade">
+    </section>
+
+    <section id="solucao">
+        <h2>Solução</h2>
+        <p>Além do tratamento com antibióticos, a prevenção é a melhor solução para evitar a pneumonia bacteriana. Medidas de prevenção incluem a vacinação contra pneumococo, uma boa higiene, como lavar as mãos regularmente e evitar o contato próximo com pessoas doentes. Manter um estilo de vida saudável, com uma dieta equilibrada e exercícios físicos, também contribui para fortalecer o sistema imunológico. Em casos de sintomas persistentes, é importante procurar orientação médica para um diagnóstico e tratamento adequados.</p>
+    </section>
+
+    <section id="prevencao">
+        <h2>Prevenção</h2>
+        <p>A prevenção da pneumonia bacteriana é crucial para reduzir o risco de infecção. As principais estratégias incluem a vacinação contra pneumococo, que protege contra diversas cepas bacterianas, e a prática de hábitos saudáveis, como uma dieta balanceada e exercícios regulares. Além disso, é fundamental adotar medidas de higiene, como lavar as mãos com frequência e evitar contato próximo com pessoas infectadas. Manter o ambiente limpo e bem ventilado também ajuda a reduzir a transmissão de bactérias.</p>
+        <img src="prevencao.png" alt="Prevenção">
+    </section>
+
+    <!-- Seção de Comentários -->
+    <section id="comentarios">
+        <h2>Comentários</h2>
+        <div class="comentario">
+            <p class="nome">João da Silva</p>
+            <p class="data-hora">16 de agosto de 2024, 14:32</p>
+            <p class="texto">Ótimas informações sobre a pneumonia bacteriana. Foi muito útil para entender a doença e os cuidados necessários.</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Maria Oliveira</p>
+            <p class="data-hora">14 de agosto de 2024, 09:45</p>
+            <p class="texto">Achei a seção sobre prevenção muito esclarecedora. É importante reforçar essas medidas para manter a saúde.</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Pedro Santos</p>
+            <p class="data-hora">13 de agosto de 2024, 16:21</p>
+            <p class="texto">As imagens ajudam a visualizar melhor o que é a pneumonia. Parabéns pelo conteúdo bem explicado!</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Miguel Silva</p>
+            <p class="data-hora">11 de agosto de 2024, 19:34</p>
+            <p class="texto">Vocês fizeram um ótimo trabalho.</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Lucas Vieira</p>
+            <p class="data-hora">10 de agosto de 2024, 12:53</p>
+            <p class="texto">Onde marco uma consulta?</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Pneumonia Bacteriana - Todos os direitos reservados</p>
+        <p>Desenvolvido pelo Grupo de Biotecnologia 
+    </footer>
+
+    <script>
+        // Simulação de carregamento e remoção da tela de carregamento
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = 0;
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 1000); // Tempo para a animação de fade-out
+        });
+
+        // Simulação de animação de entrada para as seções
+        const sections = document.querySelectorAll('section');
+        const options = {
+            root: null,
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <img src="" alt="Imagem ampliada">
+</div>
+
+    <script>
+const images = document.querySelectorAll('section img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = lightbox.querySelector('img');
+
+images.forEach(image => {
+    image.addEventListener('click', () => {
+        lightboxImage.src = image.src;
+        lightbox.style.display = 'flex';
+    });
+});
+
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
