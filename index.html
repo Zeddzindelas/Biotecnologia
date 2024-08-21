@@ -127,6 +127,43 @@
             border-radius: 10px;
         }
 
+form {
+    background: #00796b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+form button {
+    background: #ff9800;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #ffeb3b;
+    color: #00796b;
+}
+
         /* Estilo das seções */
         section {
             padding: 60px 20px;
@@ -184,6 +221,10 @@
         footer p {
             margin: 5px 0;
         }
+
+html {
+    scroll-behavior: smooth;
+}
 
         /* Estilo para dispositivos móveis */
         @media (max-width: 768px) {
@@ -263,7 +304,7 @@
     </style>
 </head>
 <body>
-    <!-- Tela de carregamento -->
+    <!-- Tela de carregamento Mamãe -->
     <div id="loading-screen">
         <div class="spinner"></div>
         <p>Carregando...</p>
@@ -283,7 +324,8 @@
         <a href="#prevencao">Prevenção</a>
     </nav>
 
-    <!-- Seções -->
+    <!-- Seções Papai -->
+  
     <section id="oque">
         <h2>O que é Pneumonia Bacteriana?</h2>
         <p>A pneumonia bacteriana é uma infecção grave dos pulmões causada por bactérias, que provoca inflamação nos alvéolos, pequenos sacos de ar nos pulmões. A bactéria Streptococcus pneumoniae é a principal causadora, mas outros microrganismos, como fungos e vírus, também podem causar a doença. Esse tipo de pneumonia pode ocorrer quando a imunidade está baixa ou como complicação de infecções virais como Covid-19 e influenza. Em 2023, houve um aumento de casos devido ao fim do isolamento da Covid-19, afetando vários países.</p>
@@ -349,6 +391,41 @@
             <p class="data-hora">10 de agosto de 2024, 12:53</p>
             <p class="texto">Onde marco uma consulta?</p>
         </div>
+        <div class="comentario">
+            <p class="nome">Sérgio Sacani</p>
+            <p class="data-hora">09 de agosto de 2024, 17:29</p>
+            <p class="texto">Bela divulgação científica! 🚀🚀🚀</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Renato Cariani</p>
+            <p class="data-hora">05 de agosto de 2024, 18:02</p>
+            <p class="texto">Crazy! Crazy! que sensacional cara! 🤩👏</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Pirulla</p>
+            <p class="data-hora">04 de agosto de 2024, 10:48</p>
+            <p class="texto">Vocês pelo menos acredita no T-Rex Carnívoro! 🦖👏</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Felipe Hime</p>
+            <p class="data-hora">02 de agosto de 2024, 05:15</p>
+            <p class="texto">Vocês são o futuro dos brasileiros! Toma, Eberlin 🤣</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Carl Segan</p>
+            <p class="data-hora">02 de agosto de 2024, 22:52</p>
+            <p class="texto">Amazing, you are the best and will revolutionize the world</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Aleksib Morkisv</p>
+            <p class="data-hora">01 de agosto de 2024, 14:59</p>
+            <p class="texto">Поздравляю с работой</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Aleksib Morkisv</p>
+            <p class="data-hora">01 de agosto de 2024, 13:09</p>
+            <p class="texto"></p>
+        </div>
     </section>
 
     <footer>
@@ -413,9 +490,21 @@ lightbox.addEventListener('click', () => {
     window.addEventListener('load', function () {
         setTimeout(function () {
             document.getElementById('loading-screen').style.display = 'none'; // Remove a tela de carregamento
-            document.getElementById('content').style.display = 'block'; // Exibe o conteúdo principal
-            document.body.classList.remove('loading'); // Permite o rolar da página
+            document.getElementById('content').style.display = 'block'; // Exibe o conteúdo principal de pimbada
+            document.body.classList.remove('loading'); // Permite o rolar da página para ler
         }, 6000); // Atraso de 6 segundos
+    });
+</script>
+
+<script>
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     });
 </script>
 
