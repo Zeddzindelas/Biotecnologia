@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pneumonia Bacteriana</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Tela de carregamento */
@@ -106,6 +107,20 @@
             color: #ffeb3b;
             transform: scale(1.1);
         }
+
+        .parallax {
+    background-image: url('background.jpg');
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section img:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: brightness(0.8);
+}
 
          /* Lightbox overlay */
         .lightbox {
@@ -310,6 +325,10 @@ html {
         <p>Carregando...</p>
     </div>
 
+    <div class="progress-bar">
+        <div class="progress"></div>
+    </div>
+
     <header>
         <img src="pulmoes.png" alt="Logo" class="logo">
         <h1>Pneumonia Bacteriana</h1>
@@ -412,7 +431,7 @@ html {
             <p class="texto">Vocês são o futuro dos brasileiros! Toma, Eberlin 🤣</p>
         </div>
         <div class="comentario">
-            <p class="nome">Carl Segan</p>
+            <p class="nome">Carl Sagan</p>
             <p class="data-hora">02 de agosto de 2024, 22:52</p>
             <p class="texto">Amazing, you are the best and will revolutionize the world</p>
         </div>
@@ -429,13 +448,18 @@ html {
         <div class="comentario">
             <p class="nome">Renato Cariani</p>
             <p class="data-hora">23 de julho de 2024, 08:20</p>
-            <p class="texto">Olha essa perfeição, Maurício. Agora quero ver eles fazerem um site sobre Minecraft. Parabéns, amigos 💉</p>
+            <p class="texto">Olha essa perfeição, Maurício. Agora quero ver eles fazerem um artigo sobre . Parabéns, amigos 💉</p>
+        </div>
+        <div class="comentario">
+            <p class="nome">Maicon Ember</p>
+            <p class="data-hora">19 de julho de 2024, 00:19</p>
+            <p class="texto">Parabéns pelo conteúdo!</p>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2024 Pneumonia Bacteriana - Todos os direitos reservados</p>
-        <p>Desenvolvido pelo Grupo de Biotecnologia 
+        <p>Desenvolvido por Gabriel
     </footer>
 
     <script>
@@ -512,6 +536,14 @@ lightbox.addEventListener('click', () => {
         });
     });
 </script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+<div data-aos="fade-up">
+    <!-- Conteúdo animado -->
+</div>
 
 </body>
 </html>
